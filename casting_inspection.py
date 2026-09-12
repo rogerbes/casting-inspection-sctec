@@ -158,3 +158,19 @@ def build_and_train_cnn(dataset_dir):
         layers.Dense(1, activation='sigmoid') # Saída Binária: Probabilidade de Peça Defeituosa
     ], name="CNN_Casting_Quality_Inspector")
 
+    # Compilação do Modelo: Otimizador Adam e Perda BinaryCrossentropy
+    model.compile(
+        optimizer='adam',
+        loss='binary_crossentropy',
+        metrics=['accuracy']
+    )
+
+    model.summary()
+
+    # Treinamento do Modelo
+    print(f"[INFO] Iniciando o Treinamento por {EPOCHS} épocas...")
+    history = model.fit(
+        train_ds,
+        validation_data=val_ds,
+        epochs=EPOCHS
+    )    
