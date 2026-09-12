@@ -96,7 +96,8 @@ def run_opencv_exploratory_analysis(sample_image_path):
 def build_and_train_cnn(dataset_dir):
 
 #============================================================================
-
+# SPRINTS 4, 5 & 6: INGESTÃO DE DADOS, ARQUITETURA CNN E TREINAMENTO
+#============================================================================
     print("[INFO] Executando Sprint 4: Carregamento do Dataset e Data Augmentation...")
 
     # Sprint 4: Ingestão de Dados via image_dataset_from_directory (Split 80% Treino / 20% Validação)
@@ -174,3 +175,41 @@ def build_and_train_cnn(dataset_dir):
         validation_data=val_ds,
         epochs=EPOCHS
     )    
+
+    # SPRINT 6: Geração de gráficos de loss e acurácia (Curvas de Treinamento)
+    print("[INFO] Executando Sprint 6: Gerando Gráficos de Auditoria Gráfica (Loss e Accuracy)...")
+    acc = history.history['accuracy']
+    val_acc = history.history['val_accuracy']
+    loss = history.history['loss']
+    val_loss = history.history['val_loss']
+
+    epochs_range = range(1, EPOCHS + 1)
+
+    plt.figure(figsize=(14, 5))
+
+    # Gráfico de Perda (Loss)
+    plt.subplot(1, 2, 1)
+    plt.plot(epochs_range, loss, 'o-', label='Perda no Treino (Training Loss)', color='#2b5c8f')
+    plt.plot(epochs_range, val_loss, 's--', label='Perda na Validação (Validation Loss)', color='#d9534f')
+    plt.title('Curva de Perda (Binary Crossentropy)', fontsize=12, fontweight='bold')
+    plt.xlabel('Época')
+    plt.ylabel('Loss')
+    plt.legend(loc='upper right')
+    plt.grid(True, linestyle=':', alpha=0.6)
+
+    # Gráfico de Acurácia (Accuracy)
+    plt.subplot(1, 2, 2)
+    plt.plot(epochs_range, acc, 'o-', label='Acurácia no Treino (Training Acc)', color='#2b5c8f')
+    plt.plot(epochs_range, val_acc, 's--', label='Acurácia na Validação (Validation Acc)', color='#5cb85c')
+    plt.title('Curva de Acurácia (Accuracy)', fontsize=12, fontweight='bold')
+    plt.xlabel('Época')
+    plt.ylabel('Acurácia')
+    plt.legend(loc='lower right')
+    plt.grid(True, linestyle=':', alpha=0.6)
+
+    plt.tight_layout()
+    plt.savefig("resultado_treinamento_cnn.png", dpi=300)
+    plt.close()
+    print("[SUCESSO] Gráfico de auditoria salvo em 'resultado_treinamento_cnn.png'.")
+
+    return model, history
