@@ -22,10 +22,6 @@ from tensorflow.keras import layers, models
 # ==============================================================================
 # SPRINT 1: CONFIGURAÇÃO DO AMBIENTE E PARÂMETROS GERAIS
 # ==============================================================================
-# ROTEIRO DO VÍDEO (Sprint 1):
-# "Aqui definimos a padronização das imagens e hiperparâmetros. Ajustamos a resolução
-# para 300x300 pixels para preservar os detalhes visuais das ranhuras e trincas,
-# definimos o batch size de 32 imagens e dividimos o pipeline em tarefas claras."
 
 IMG_HEIGHT = 300
 IMG_WIDTH = 300
@@ -35,9 +31,9 @@ DATASET_DIR = "dataset_casting"  # Diretório contendo as pastas 'ok' e 'def_fro
 
 def run_opencv_exploratory_analysis(sample_image_path):
 
-#    ============================================================================
-#    SPRINT 2 & SPRINT 3: PROCESSAMENTO CLÁSSICO COM OPENCV
-#    ============================================================================
+#============================================================================
+# SPRINT 2 & SPRINT 3: PROCESSAMENTO CLÁSSICO COM OPENCV
+#============================================================================
 
     print("[INFO] Executando Sprints 2 & 3: Análise Exploratória Clássica (OpenCV)...")
 
@@ -97,4 +93,3 @@ def run_opencv_exploratory_analysis(sample_image_path):
     plt.close()
     print("[SUCESSO] Painel da análise exploratória OpenCV salvo em 'pipeline_opencv_exploratorio.png'.")
 
-    
