@@ -93,3 +93,40 @@ def run_opencv_exploratory_analysis(sample_image_path):
     plt.close()
     print("[SUCESSO] Painel da análise exploratória OpenCV salvo em 'pipeline_opencv_exploratorio.png'.")
 
+def build_and_train_cnn(dataset_dir):
+
+#============================================================================
+
+    print("[INFO] Executando Sprint 4: Carregamento do Dataset e Data Augmentation...")
+
+    # Sprint 4: Ingestão de Dados via image_dataset_from_directory (Split 80% Treino / 20% Validação)
+    train_ds = tf.keras.utils.image_dataset_from_directory(
+        dataset_dir,
+        validation_split=0.2,
+        subset="training",
+        seed=42,
+        image_size=(IMG_HEIGHT, IMG_WIDTH),
+        batch_size=BATCH_SIZE
+    )
+
+    val_ds = tf.keras.utils.image_dataset_from_directory(
+        dataset_dir,
+        validation_split=0.2,
+        subset="validation",
+        seed=42,
+        image_size=(IMG_HEIGHT, IMG_WIDTH),
+        batch_size=BATCH_SIZE
+    )
+
+    # Otimização de Pipeline de Memória (Prefetch)
+    AUTOTUNE = tf.data.AUTOTUNE
+    train_ds = train_ds.cache().shuffle(1000).prefetch(buffer_size=AUTOTUNE)
+    val_ds = val_ds.cache().prefetch(buffer_size=AUTOTUNE)
+
+    # SPRINT 4: Camada Sequencial de Data Augmentation Dinâmico
+    data_augmentation = tf.keras.Sequential([
+        layers.RandomFlip("horizontal_and_vertical"),
+        layers.RandomRotation(0.15),
+        layers.RandomZoom(0.1),
+        layers.RandomContrast(0.1)
+    ], name="Data_Augmentation_Layer")
