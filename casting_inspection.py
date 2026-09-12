@@ -213,3 +213,15 @@ def build_and_train_cnn(dataset_dir):
     print("[SUCESSO] Gráfico de auditoria salvo em 'resultado_treinamento_cnn.png'.")
 
     return model, history
+
+if __name__ == "__main__":
+    print("=================================================================")
+    print(" INICIALIZANDO PIPELINE INDUSTRIAL DE INSPEÇÃO VISUAL (SCTEC) ")
+    print("=================================================================")
+    
+    # 1. Executa a Análise Exploratória (OpenCV) numa imagem de teste
+    # Importante: Verifique estrutura da pasta/imagem no seu computador
+    run_opencv_exploratory_analysis('dataset_casting/def_front/cast_def_0_0.jpeg')
+    
+    # 2. Executa a Ingestão e o Treinamento da CNN (TensorFlow)
+    build_and_train_cnn('dataset_casting')
