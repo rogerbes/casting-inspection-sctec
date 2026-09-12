@@ -130,3 +130,31 @@ def build_and_train_cnn(dataset_dir):
         layers.RandomZoom(0.1),
         layers.RandomContrast(0.1)
     ], name="Data_Augmentation_Layer")
+
+    # SPRINT 5: Construção da Arquitetura Convolucional Sequencial (CNN)
+    print("[INFO] Executando Sprint 5: Construindo e Compilando a Rede Neural Convolucional...")
+    model = models.Sequential([
+        # Entradas e Normalização dos Pixels [0, 255] -> [0, 1]
+        layers.Input(shape=(IMG_HEIGHT, IMG_WIDTH, 3)),
+        data_augmentation,
+        layers.Rescaling(1./255),
+
+        # Bloco Convolucional 1: Extração de Bordas e Texturas Primárias
+        layers.Conv2D(32, (3, 3), activation='relu', padding='same'),
+        layers.MaxPooling2D((2, 2)),
+
+        # Bloco Convolucional 2: Extração de Formas e Padrões Complexos
+        layers.Conv2D(64, (3, 3), activation='relu', padding='same'),
+        layers.MaxPooling2D((2, 2)),
+
+        # Bloco Convolucional 3: Extração de Traços Específicos de Defeito (Fendas/Ranhuras)
+        layers.Conv2D(128, (3, 3), activation='relu', padding='same'),
+        layers.MaxPooling2D((2, 2)),
+
+        # Transição Matricial (Flattening) e Classificação Densa
+        layers.Flatten(),
+        layers.Dense(128, activation='relu'),
+        layers.Dropout(0.5), # Prevenção de Overfitting
+        layers.Dense(1, activation='sigmoid') # Saída Binária: Probabilidade de Peça Defeituosa
+    ], name="CNN_Casting_Quality_Inspector")
+
