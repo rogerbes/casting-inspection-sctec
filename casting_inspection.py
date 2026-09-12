@@ -29,10 +29,10 @@ BATCH_SIZE = 32
 EPOCHS = 15
 DATASET_DIR = "dataset_casting"  # Diretório contendo as pastas 'ok' e 'def_front'
 
-"""
+
 ### PERGUNTA 1: 
 # Qual o objetivo do sistema e demonstração de funcionamento no notebook?
-"""
+
 
 def run_opencv_exploratory_analysis(sample_image_path):
 
@@ -99,10 +99,9 @@ def run_opencv_exploratory_analysis(sample_image_path):
     print("[SUCESSO] Painel da análise exploratória OpenCV salvo em 'pipeline_opencv_exploratorio.png'.")
 
 
-"""
 ### PERGUNTA 2:
 # O que as técnicas clássicas de OpenCV (Canny, Blur) revelaram sobre os defeitos da peça na sua análise exploratória?  
-"""
+
 
 def build_and_train_cnn(dataset_dir):
 
@@ -187,10 +186,8 @@ def build_and_train_cnn(dataset_dir):
         epochs=EPOCHS
     )    
 
-"""
 ### PERGUNTA 3:
 # 3. Como você estruturou a sua CNN e o Data Augmentation para aprender esses padrões em larga escala?
-"""
 
     # SPRINT 6: Geração de gráficos de loss e acurácia (Curvas de Treinamento)
     print("[INFO] Executando Sprint 6: Gerando Gráficos de Auditoria Gráfica (Loss e Accuracy)...")
@@ -242,7 +239,6 @@ if __name__ == "__main__":
     # 2. Executa a Ingestão e o Treinamento da CNN (TensorFlow)
     build_and_train_cnn('dataset_casting')
 
-"""
+
 ### PERGUNTA 4:
 # Analisando o seu gráfico de Loss gerado no final, ocorreu Overfitting ou o modelo aprendeu de forma saudável?
-"""
